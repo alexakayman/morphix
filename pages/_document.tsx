@@ -7,6 +7,20 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link rel="icon" href="../public/images/favicon.ico" />
+          <meta property="og:image" content="../public/images/graphhero.png" />
+          <meta name="title" content="Morphix | Parse Unstructured Data" />
+          <meta
+            name="description"
+            content="Describe the data you want and export a .csv in seconds. Parse unstructured data with GPT-4. Try Morphix for free and say goodbye to web scraping. "
+          />
+          <meta
+            name="keywords"
+            content="Free web scraper, web scraper io, parse unstructured data"
+          />
+          <meta name="robots" content="index, follow" />
+          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          <meta name="language" content="English" />
+          <meta name="author" content="Alexa Kayman" />
         </Head>
         <body>
           <Main />
