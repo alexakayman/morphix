@@ -35,14 +35,15 @@ const Fields = () => {
 
     // Add event listener
     fieldTypeInput.addEventListener("change", () => {
-      let extraInput = fieldWrapper.querySelector(".extra-input");
+      let extraInput = fieldWrapper.querySelector(
+        ".extra-input"
+      ) as HTMLInputElement;
       if (
         fieldTypeInput.value === "select" ||
         fieldTypeInput.value === "other"
       ) {
         if (!extraInput) {
-          extraInput = document.createElement("input");
-          extraInput.type = "text";
+          extraInput = document.createElement("input") as HTMLInputElement;
           extraInput.className = "field text-slate-11 extra-input";
           fieldWrapper.insertBefore(extraInput, deleteButton);
         }
