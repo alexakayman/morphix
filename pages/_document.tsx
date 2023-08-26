@@ -6,8 +6,8 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <link rel="icon" href="../public/images/favicon.ico" />
-          <meta property="og:image" content="../public/images/graphhero.png" />
+          <link rel="icon" href="/images/favicon.ico" />
+          <meta property="og:image" content="/images/opengraph.png" />
           <meta name="title" content="Morphix | Parse Unstructured Data" />
           <meta
             name="description"
