@@ -38,7 +38,7 @@ const Scraper = () => {
     }
 
     try {
-      const response = await fetch("/scrape", {
+      const response = await fetch("/api/scrape", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -114,7 +114,7 @@ const Scraper = () => {
         <div className="flex flex-col items-start justify-between md:pb-12 gap-4">
           <div className="content">
             <h3 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[3rem] md:text-7xl leading-[3.35rem] md:leading-[4rem] tracking-tight font-gradient">
-              Collect data
+              2) Collect data
             </h3>
             <div className="input_pair">
               <input
@@ -137,7 +137,7 @@ const Scraper = () => {
       <section className="mx-auto max-w-5xl px-6 pb-8 md:max-w-7xl">
         <div className="flex flex-col items-start justify-between md:pb-12 gap-4">
           <h3 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[3rem] md:text-7xl leading-[3.35rem] md:leading-[4rem] tracking-tight font-gradient">
-            Results:
+            3) Download Results
           </h3>
           <p id="statusText">Waiting for input...</p>
           <p id="resultsContainer"></p>

@@ -57,9 +57,9 @@ export default function Hero() {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
                       d="M10.75 8.75L14.25 12L10.75 15.25"
                     ></path>
                   </svg>
@@ -82,9 +82,9 @@ export default function Hero() {
                   >
                     <path
                       stroke="currentColor"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="1.5"
                       d="M10.75 8.75L14.25 12L10.75 15.25"
                     ></path>
                   </svg>
