@@ -9,7 +9,9 @@ export default function Hero() {
             <div className="flex items-center justify-center md:inline-flex">
               <a
                 className="auroraBorder mb-10 inline-flex items-center justify-center text-[14px]"
-                href="https://www.producthunt.com/posts/resend-3"
+                href="https://alexakayman.com?ref=morphix"
+                target="_blank"
+                rel="noopener morphix"
               >
                 <span className="inline-flex items-center gap-1 whitespace-nowrap px-3 py-1">
                   Brought to you by Alexa Kayman{" "}
@@ -41,7 +43,7 @@ export default function Hero() {
             <div className="flex flex-col justify-center gap-4 md:flex-row md:justify-start">
               <a
                 className="text-base h-12 pl-5 pr-2 gap-0 font-semibold bg-white text-black hover:bg-white/90 focus-visible:ring-4 focus-visible:ring-white/30 focus-visible:outline-none focus-visible:bg-white/90 disabled:hover:bg-white inline-flex items-center border justify-center select-none rounded-full disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200"
-                href="/signup"
+                href="/#start"
               >
                 Get Started
                 <span className="text-[#70757E]">
@@ -64,7 +66,9 @@ export default function Hero() {
               </a>
               <a
                 className="text-base h-12 pl-5 pr-2 gap-0 font-semibold bg-slate-1 border-slate-1 text-slate-11 hover:bg-slate-5 hover:text-slate-12 focus-visible:ring-4 focus-visible:ring-slate-7 focus-visible:outline-none focus-visible:bg-slate-6 disabled:hover:bg-slate-1 inline-flex items-center border justify-center select-none rounded-full disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200"
-                href="/docs"
+                href="https://github.com/alexakayman/morphix?ref=morphix"
+                target="_blank"
+                rel="noopener"
               >
                 Star on GitHub
                 <span className="text-[#70757E]">

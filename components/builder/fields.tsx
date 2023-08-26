@@ -162,7 +162,7 @@ const Fields = () => {
   };
 
   return (
-    <section className="mx-auto max-w-5xl px-6 pb-8 md:max-w-7xl">
+    <section className="mx-auto max-w-5xl px-6 pb-8 md:max-w-7xl" id="start">
       <div className="flex flex-col items-start justify-between md:pb-12 gap-4">
         <h3 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[3rem] md:text-7xl leading-[3.35rem] md:leading-[4rem] tracking-tight font-gradient">
           Add Fields
