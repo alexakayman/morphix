@@ -18,7 +18,7 @@ class MyDocument extends Document {
             content="Free web scraper, web scraper io, parse unstructured data"
           />
           <meta name="robots" content="index, follow" />
-          <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+          <meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
           <meta name="language" content="English" />
           <meta name="author" content="Alexa Kayman" />
         </Head>

@@ -5,19 +5,25 @@ const Fields = () => {
     const container = document.getElementById("fieldsContainer");
 
     const fieldWrapper = document.createElement("div");
-    fieldWrapper.className = "h-flex"; // Add the class for flex layout
+    fieldWrapper.className = "flex flex-row field-wrapper"; // Add the class for flex layout
 
     const fieldNameInput = document.createElement("input");
     fieldNameInput.type = "text";
     fieldNameInput.placeholder = "Field Label";
     fieldNameInput.className = "field text-slate-11";
-
     fieldNameInput.required = true; // Field Name is required
 
     const fieldTypeInput = document.createElement("select"); // Create select element
 
     // Accepted data types
-    const dataTypes = ["String", "Integer", "Float", "Datetime", "Other"];
+    const dataTypes = [
+      "String",
+      "Integer",
+      "Float",
+      "Datetime",
+      "Other",
+      "Select",
+    ];
 
     // Add options for each data type
     dataTypes.forEach((dataType) => {
@@ -27,13 +33,43 @@ const Fields = () => {
       fieldTypeInput.appendChild(option);
     });
 
+    // Add event listener
+    fieldTypeInput.addEventListener("change", () => {
+      let extraInput = fieldWrapper.querySelector(".extra-input");
+      if (
+        fieldTypeInput.value === "select" ||
+        fieldTypeInput.value === "other"
+      ) {
+        if (!extraInput) {
+          extraInput = document.createElement("input");
+          extraInput.type = "text";
+          extraInput.className = "field text-slate-11 extra-input";
+          fieldWrapper.insertBefore(extraInput, deleteButton);
+        }
+        extraInput.placeholder =
+          fieldTypeInput.value === "select"
+            ? "Enter options"
+            : "Enter data type";
+      } else {
+        if (extraInput) {
+          fieldWrapper.removeChild(extraInput);
+        }
+      }
+    });
+
     // Add styling class
     fieldTypeInput.className = "field text-slate-11";
     fieldTypeInput.required = true; // Field Type is required
 
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+    deleteButton.className = "action-button";
+    deleteButton.onclick = () => container?.removeChild(fieldWrapper);
+
     // Append input fields to the wrapper div
     fieldWrapper.appendChild(fieldNameInput);
     fieldWrapper.appendChild(fieldTypeInput);
+    fieldWrapper.appendChild(deleteButton);
 
     if (container) {
       container.appendChild(fieldWrapper);
@@ -76,6 +112,35 @@ const Fields = () => {
         option.value = dataType;
         option.text = dataType;
         fieldTypeInput.appendChild(option);
+      });
+
+      // Add options for each data type
+      dataTypes.forEach((dataType) => {
+        const option = document.createElement("option");
+        option.value = dataType;
+        option.text = dataType;
+        fieldTypeInput.appendChild(option);
+      });
+
+      // Add event listener
+      fieldTypeInput.addEventListener("change", () => {
+        if (
+          fieldTypeInput.value === "select" ||
+          fieldTypeInput.value === "other"
+        ) {
+          const extraInput = document.createElement("input");
+          extraInput.type = "text";
+          extraInput.placeholder = "Enter options";
+          extraInput.className = "field text-slate-11";
+          fieldWrapper.appendChild(extraInput);
+        } else {
+          const extraInput = fieldWrapper.querySelector(
+            ".field.text-slate-11:last-child"
+          );
+          if (extraInput) {
+            fieldWrapper.removeChild(extraInput);
+          }
+        }
       });
 
       // Add styling class
@@ -141,7 +206,7 @@ const Fields = () => {
       if (storedFieldsBody && storedFieldsHeader) {
         fields.forEach((field) => {
           const tableHeading = document.createElement("th");
-          tableHeading.innerHTML = `${field[0]}<br><br>(${field[1]})`;
+          tableHeading.innerHTML = `${field[0]}`;
           storedFieldsHeader.appendChild(tableHeading);
         });
       }

@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Scraper = () => {
-  async function startScraping() {
+  const [links, setLinks] = useState([""]);
+
+  function handleLinkChange(index: number, newLink: string) {
+    const newLinks = [...links];
+    newLinks[index] = newLink;
+    setLinks(newLinks);
+  }
+
+  function handleAddLink() {
+    setLinks([...links, ""]);
+  }
+
+  function handleDeleteLink(index: number) {
+    const newLinks = [...links];
+    newLinks.splice(index, 1);
+    setLinks(newLinks);
+  }
+
+  async function startScraping(link: string) {
     const statusText = document.getElementById("statusText");
     const linkInput = document.getElementById("linkInput") as HTMLInputElement;
-    const link = linkInput ? linkInput.value : null;
+
     if (!link) return;
 
     // Collect fields
@@ -116,15 +134,33 @@ const Scraper = () => {
             <h3 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[3rem] md:text-7xl leading-[3.35rem] md:leading-[4rem] tracking-tight font-gradient">
               2) Collect data
             </h3>
-            <div className="input_pair">
-              <input
-                type="text"
-                id="linkInput"
-                placeholder="Enter the link to scrape"
-              />
+            <div className="flex flex-col gap-2 mt-5">
+              {links.map((link, index) => (
+                <div key={index} className="flex flex-row w-full">
+                  <input
+                    type="text"
+                    value={link}
+                    onChange={(e) => handleLinkChange(index, e.target.value)}
+                    placeholder="Enter the link to scrape"
+                    className="field"
+                  />
+                  <div className="flex flex-row">
+                    <button className="action-button" onClick={handleAddLink}>
+                      Add
+                    </button>
+                    <button
+                      className="action-button"
+                      onClick={() => handleDeleteLink(index)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              ))}
+
               <button
                 onClick={() => {
-                  startScraping();
+                  links.forEach(startScraping);
                   scrapeInProgress();
                 }}
               >
