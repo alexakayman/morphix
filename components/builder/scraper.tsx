@@ -2,6 +2,7 @@ import React from "react";
 
 const Scraper = () => {
   async function startScraping() {
+    const statusText = document.getElementById("statusText");
     const linkInput = document.getElementById("linkInput") as HTMLInputElement;
     const link = linkInput ? linkInput.value : null;
     if (!link) return;
@@ -28,8 +29,11 @@ const Scraper = () => {
 
     if (hasBlankField) {
       // Show an error message for missing fields
-      document.getElementById("statusText").innerText =
-        "Please complete all field names and field types.";
+      const statusText = document.getElementById("statusText");
+      if (statusText) {
+        statusText.innerText =
+          "Please complete all field names and field types.";
+      }
       return;
     }
 
@@ -44,27 +48,30 @@ const Scraper = () => {
 
       if (!response.ok) {
         const errorText = await response.text();
-        document.getElementById("statusText").innerText = `Error: ${errorText}`;
+        if (statusText) {
+          statusText.innerText = `Error: ${errorText}`;
+        }
       } else {
         const result = await response.json();
-        document.getElementById("statusText").innerText = "Scraping completed!";
-        // Process and display results (for now, just printing the returned fields)
-
-        // document.getElementById("resultsContainer").innerHTML =
+        if (statusText) {
+          statusText.innerText = `Scraping Completed!`;
+        }
         const results = result.aiResponse.choices[0].message.content;
         addResults(results);
       }
     } catch (error) {
-      document.getElementById(
-        "statusText"
-      ).innerText = `Error connecting to the server: ${error}`;
-      console.error(error);
+      if (statusText) {
+        statusText.innerText = `Error connecting to the server: ${error}`;
+        console.error(error);
+      }
     }
   }
-
   function scrapeInProgress() {
     // Before making the API request:
-    document.getElementById("statusText").innerText = "Currently requesting...";
+    const statusText = document.getElementById("statusText");
+    if (statusText) {
+      statusText.innerText = "Currently requesting...";
+    }
   }
 
   function addResults(results: any) {
@@ -75,8 +82,11 @@ const Scraper = () => {
     console.log(results, results.length);
 
     // select the table we'll be adding to
-    const storedFieldsBody = storedFieldsTable.querySelector("tbody");
-    storedFieldsBody.innerHTML = "";
+    const storedFieldsBody = document.querySelector("tbody");
+
+    if (storedFieldsBody) {
+      storedFieldsBody.innerHTML = "";
+    }
 
     // creating a row for each result set
     const tableRow = document.createElement("tr");
@@ -94,9 +104,10 @@ const Scraper = () => {
       );
     }
 
-    storedFieldsBody.appendChild(tableRow);
+    if (storedFieldsBody) {
+      storedFieldsBody.appendChild(tableRow);
+    }
   }
-
   return (
     <>
       <section className="mx-auto max-w-5xl px-6 pb-8 md:max-h-[950px] md:max-w-7xl">

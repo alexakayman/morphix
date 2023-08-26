@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -7,7 +8,7 @@ export default function Hero() {
         <div className="flex h-full flex-col items-center justify-between md:flex-row md:pb-24">
           <div className="origin-center-left order-1 max-w-3xl animate-hero-text-slide-up-fade sm:shrink-0 md:order-1 lg:pl-16">
             <div className="flex items-center justify-center md:inline-flex">
-              <a
+              <Link
                 className="auroraBorder mb-10 inline-flex items-center justify-center text-[14px]"
                 href="https://alexakayman.com?ref=morphix"
                 target="_blank"
@@ -31,7 +32,7 @@ export default function Hero() {
                     ></path>
                   </svg>
                 </span>
-              </a>
+              </Link>
             </div>
             <h1 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[4rem] md:text-7xl leading-[4.35rem] md:leading-[5rem] tracking-tight font-gradient">
               Describe the data you want - export a .csv in seconds
@@ -41,7 +42,7 @@ export default function Hero() {
               describe the data you want.
             </p>
             <div className="flex flex-col justify-center gap-4 md:flex-row md:justify-start">
-              <a
+              <Link
                 className="text-base h-12 pl-5 pr-2 gap-0 font-semibold bg-white text-black hover:bg-white/90 focus-visible:ring-4 focus-visible:ring-white/30 focus-visible:outline-none focus-visible:bg-white/90 disabled:hover:bg-white inline-flex items-center border justify-center select-none rounded-full disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200"
                 href="/#start"
               >
@@ -63,8 +64,8 @@ export default function Hero() {
                     ></path>
                   </svg>
                 </span>
-              </a>
-              <a
+              </Link>
+              <Link
                 className="text-base h-12 pl-5 pr-2 gap-0 font-semibold bg-slate-1 border-slate-1 text-slate-11 hover:bg-slate-5 hover:text-slate-12 focus-visible:ring-4 focus-visible:ring-slate-7 focus-visible:outline-none focus-visible:bg-slate-6 disabled:hover:bg-slate-1 inline-flex items-center border justify-center select-none rounded-full disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200"
                 href="https://github.com/alexakayman/morphix?ref=morphix"
                 target="_blank"
@@ -88,7 +89,7 @@ export default function Hero() {
                     ></path>
                   </svg>
                 </span>
-              </a>
+              </Link>
             </div>
           </div>
           <div id="hero-image" className="order-2">
