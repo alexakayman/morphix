@@ -16,4 +16,9 @@ My latest late-night weekend side project. Here's how it works:
 ### About
 
 **Why Morphix?**
-"Morph" refers to the process of transformation or change, while "fix" implies stability or resolution.Together, Morphix transforms your data into a stable, readable state.
+"Morph" refers to the process of transformation or change, while "fix" implies stability or resolution. Together, Morphix transforms your data into a stable, readable state. 
+
+### Known Issues
+1. Deleting a field after data has been generated will refresh the results table, deleting all results.
+2. Adding a new link & collecting results after some results have already been generated may result in uneven tables. Add all of the links at once & then export.
+
