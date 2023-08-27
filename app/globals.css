@@ -16,6 +16,34 @@
   }
 }
 
+h3 {
+  font-family: "Book", sans-serif;
+  font-weight: normal;
+  text-align: center;
+  font-size: 3rem;
+  line-height: 3.35rem;
+  letter-spacing: -0.025em;
+  background: linear-gradient(
+    to right bottom,
+    #fff 30%,
+    hsla(0, 0%, 100%, 0.5)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: unset;
+  -webkit-text-stroke: 0.4px #ffffff80;
+  text-shadow: -1px -1px 0 hsla(0, 0%, 100%, 0.2), 1px 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 768px) {
+  h3 {
+    text-align: left;
+    font-size: 7rem;
+    line-height: 4rem;
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -144,6 +172,7 @@ button:hover {
 .action-button:hover {
   border-color: #d1d5db;
   transition: color 300ms;
+  background-color: rgba(36, 36, 36, 0.5);
 }
 
 .field {

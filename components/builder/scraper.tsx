@@ -102,30 +102,27 @@ const Scraper = () => {
     // select the table we'll be adding to
     const storedFieldsBody = document.querySelector("tbody");
 
-    if (storedFieldsBody) {
-      storedFieldsBody.innerHTML = "";
-    }
-
     // creating a row for each result set
     const tableRow = document.createElement("tr");
 
-    // for every item in that array, add it to the table. we're just praying that the order is correct.
+    // for every item in that array, add it to the table.
     if (Array.isArray(results)) {
       results.forEach((result) => {
         const tableCell = document.createElement("td");
         tableCell.textContent = result;
         tableRow.appendChild(tableCell);
       });
+
+      if (storedFieldsBody) {
+        storedFieldsBody.appendChild(tableRow);
+      }
     } else {
       console.log(
         `Error: expected an array. Instead, got "${results}" which is a ${typeof results}`
       );
     }
-
-    if (storedFieldsBody) {
-      storedFieldsBody.appendChild(tableRow);
-    }
   }
+
   return (
     <>
       <section className="mx-auto max-w-5xl px-6 pb-8 md:max-h-[950px] md:max-w-7xl">

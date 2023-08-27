@@ -10,7 +10,7 @@ const Fields = () => {
     const fieldNameInput = document.createElement("input");
     fieldNameInput.type = "text";
     fieldNameInput.placeholder = "Field Label";
-    fieldNameInput.className = "field text-slate-11";
+    fieldNameInput.className = "field text-slate-11 field-name";
     fieldNameInput.required = true; // Field Name is required
 
     const fieldTypeInput = document.createElement("select"); // Create select element
@@ -59,7 +59,7 @@ const Fields = () => {
     });
 
     // Add styling class
-    fieldTypeInput.className = "field text-slate-11";
+    fieldTypeInput.className = "field text-slate-11 field-type";
     fieldTypeInput.required = true; // Field Type is required
 
     const deleteButton = document.createElement("button");
@@ -163,13 +163,15 @@ const Fields = () => {
   const saveFields = () => {
     const fieldContainer = document.getElementById("fieldsContainer");
     if (fieldContainer) {
-      const fieldNames = fieldContainer.querySelectorAll(".field");
+      const fieldNameInputs = fieldContainer.querySelectorAll(".field-name");
+      const fieldTypeInputs = fieldContainer.querySelectorAll(".field-type");
+
       const fields = [];
       let hasBlankField = false;
 
-      for (let i = 0; i < fieldNames.length; i += 2) {
-        const fieldName = (fieldNames[i] as HTMLInputElement).value;
-        const fieldType = (fieldNames[i + 1] as HTMLInputElement).value;
+      for (let i = 0; i < fieldNameInputs.length; i++) {
+        const fieldName = (fieldNameInputs[i] as HTMLInputElement).value;
+        const fieldType = (fieldTypeInputs[i] as HTMLInputElement).value;
 
         if (!fieldName || !fieldType) {
           hasBlankField = true;

@@ -38,7 +38,7 @@ export default async function handler(
             role: "system",
             content: `You are a helpful assistant that searches for specific information in a given text. For each field name in the following list: ${fields.join(
               ", "
-            )}, please search through the text content to find the corresponding information. If you cannot find an answer for a field, please add "null" as the result. If one of your answers is null, check the text again to find the desired information. Do NOT return the field names, just the results as a list separated with //. `,
+            )}, please search through the text content to find the corresponding information. If you cannot find an answer for a field, please add "null" as the result. Do NOT return the field names in the output, just the results. Each result should be separated with '//' in the output list.`,
           },
           {
             role: "user",
