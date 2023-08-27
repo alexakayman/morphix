@@ -1,6 +1,7 @@
 // pages/_document.tsx
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 
 declare global {
   interface Window {
@@ -45,6 +46,7 @@ class MyDocument extends Document {
             `}
           </Script>
         </body>
+        <Analytics />
       </Html>
     );
   }
