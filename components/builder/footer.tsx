@@ -38,7 +38,7 @@ const Footer = () => {
             to zero : ( <br />
             <br />
           </p>
-          <Image src="/images/ak.png" width="150" height="100" alt="AK" />
+          <Image src="/images/sign.png" width="150" height="100" alt="AK" />
           <div className="flex flex-row gap-4 mt-4">
             <a
               href="https://alexakayman.com"
