@@ -93,7 +93,13 @@ export default function Hero() {
             </div>
           </div>
           <div id="hero-image" className="order-2">
-            <video autoPlay loop muted className="w-full h-full">
+            <video
+              autoPlay
+              loop
+              muted
+              className="w-full h-full"
+              preload="preload"
+            >
               <source src="/videos/hero.mp4" type="video/mp4" />
             </video>
           </div>

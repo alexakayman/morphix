@@ -5,7 +5,14 @@ const Footer = () => {
   return (
     <>
       <section id="morphix-banner">
-        <video autoPlay loop muted className="w-full h-full" id="morphix-video">
+        <video
+          autoPlay
+          loop
+          muted
+          className="w-full h-full"
+          id="morphix-video"
+          preload="preload"
+        >
           <source src="/videos/banner.mp4" type="video/mp4" />
         </video>
       </section>

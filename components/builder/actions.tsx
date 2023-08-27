@@ -1,5 +1,7 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Popup from "reactjs-popup";
+import Link from "next/link";
 
 const Fields = () => {
   const addField = () => {
@@ -17,14 +19,7 @@ const Fields = () => {
     const fieldTypeInput = document.createElement("select"); // Create select element
 
     // Accepted data types
-    const dataTypes = [
-      "String",
-      "Integer",
-      "Float",
-      "Datetime",
-      "Other",
-      "Select",
-    ];
+    const dataTypes = ["String", "Integer", "Float", "Datetime"];
 
     // Add options for each data type
     dataTypes.forEach((dataType) => {
@@ -93,17 +88,17 @@ const Fields = () => {
       const container = document.getElementById("fieldsContainer");
 
       const fieldWrapper = document.createElement("div");
-      fieldWrapper.className = "flex flex-row"; // Add the class for flex layout
+      fieldWrapper.className = "flex flex-row"; // Add the class for flex layout and minimum width for different devices
 
       const fieldNameInput = document.createElement("input");
       fieldNameInput.type = "text";
       fieldNameInput.placeholder = "Field Label";
-      fieldNameInput.className = "field w-28 field-name"; // Add the class 'field-name'
+      fieldNameInput.className = "field field-name flex-grow-2"; // Add the class 'field-name' and 'flex-grow-2' to make it take up double the space
       fieldNameInput.required = true; // Field Name is required
       fieldNameInput.value = fieldName;
 
       const fieldTypeInput = document.createElement("select"); // Create select element
-      fieldTypeInput.className = "field field-type"; // Add the class 'field-type'
+      fieldTypeInput.className = "field field-type flex-grow-2"; // Add the class 'field-type' and 'flex-grow-2' to make it take up double the space
       fieldTypeInput.required = true; // Field Type is required
       fieldTypeInput.value = fieldType;
 
@@ -166,16 +161,37 @@ const Fields = () => {
       const fields = [];
       let hasBlankField = false;
 
-      for (let i = 0; i < fieldNameInputs.length; i++) {
-        const fieldName = (fieldNameInputs[i] as HTMLInputElement).value;
-        const fieldType = (fieldTypeInputs[i] as HTMLInputElement).value;
+      const fieldInputs = fieldContainer.querySelectorAll(".field");
 
-        if (!fieldName || !fieldType) {
+      for (let i = 0; i < fieldInputs.length; i += 2) {
+        const fieldName = (fieldInputs[i] as HTMLInputElement).value;
+        const fieldType = fieldInputs[i + 1]
+          ? (fieldInputs[i + 1] as HTMLInputElement).value
+          : undefined;
+
+        if (fieldType === undefined) {
+          continue;
+        }
+        let extraInputValue = "";
+
+        if (fieldType === "select" || fieldType === "other") {
+          const extraInput = fieldInputs[i + 2] as HTMLInputElement;
+          if (extraInput) {
+            extraInputValue = extraInput.value;
+          }
+        }
+
+        if (
+          !fieldName ||
+          !fieldType ||
+          (extraInputValue === "" &&
+            (fieldType === "select" || fieldType === "other"))
+        ) {
           hasBlankField = true;
           break;
         }
 
-        fields.push([fieldName, fieldType]);
+        fields.push([fieldName, fieldType, extraInputValue]);
       }
 
       const fieldStatus = document.getElementById("field-status");
@@ -310,9 +326,30 @@ const Fields = () => {
     }
   }
 
-  async function handleCollectClick() {
-    scrapeInProgress();
-    await Promise.all(links.map(startScraping));
+  // keep track of uses
+
+  const [count, setCount] = useState(0);
+  const [showPopup, setShowPopup] = useState(false);
+
+  useEffect(() => {
+    const countElement = document.getElementById("count-uses");
+    if (countElement) {
+      const amount = 5 - count;
+      countElement.textContent = amount.toString();
+    }
+  }, [count]);
+
+  async function handleCollectClick(event: React.MouseEvent) {
+    event.preventDefault();
+    if (count >= 5) {
+      setShowPopup(true);
+      console.log("Blocking");
+    } else {
+      setCount(count + 1);
+      console.log(count);
+      scrapeInProgress();
+      await Promise.all(links.map(startScraping));
+    }
   }
 
   function scrapeInProgress() {
@@ -388,17 +425,99 @@ const Fields = () => {
 
   return (
     <>
+      {/* Payment popup */}
+      <Popup
+        open={showPopup}
+        modal
+        closeOnDocumentClick={false}
+        className="fixed top-0 left-0 w-full h-full text-center flex flex-col justify-center items-center"
+      >
+        <div className="flex flex-col items-center justify-center h-full gap-4">
+          <p className="font-book font-styling font-display font-effect-hero text-center text-[2rem] md:text-6xl leading-[2.35rem] md:leading-[3rem] tracking-tight font-gradient p-2">
+            Thanks for trying Morphix!
+          </p>
+          <div>
+            <p className="text-center max-w-md sans mb-8 mt-4 leading-7 md:text-left text-base md:text-[1.125rem] md:leading-[1.5] text-slate-11 font-normal">
+              Currently limiting use to 5 generations per user since the project
+              is running on my personal openAI creds 🫣
+            </p>
+          </div>
+
+          <div>
+            <p className="text-center max-w-md sans mb-8 mt-4 leading-7 text-base md:text-[1.125rem] md:leading-[1.5] text-slate-11 font-normal">
+              If you think Morphix could be useful on a daily basis / should be
+              developed further than a weekend project, let me know on Twitter!
+            </p>
+          </div>
+
+          <div className="flex flex-row gap-2">
+            <Link
+              className="text-base h-12 pl-5 pr-2 gap-0 font-semibold bg-white text-black hover:bg-white/90 focus-visible:ring-4 focus-visible:ring-white/30 focus-visible:outline-none focus-visible:bg-white/90 disabled:hover:bg-white inline-flex items-center border justify-center select-none rounded-full disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200"
+              href="https://twitter.com/alexakayman?ref=morphix"
+            >
+              @alexakayman on Twitter
+              <span className="text-[#70757E]">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M10.75 8.75L14.25 12L10.75 15.25"
+                  ></path>
+                </svg>
+              </span>
+            </Link>
+            <Link
+              className="text-base h-12 pl-5 pr-2 gap-0 font-semibold bg-slate-1 border-slate-1 text-slate-11 hover:bg-slate-5 hover:text-slate-12 focus-visible:ring-4 focus-visible:ring-slate-7 focus-visible:outline-none focus-visible:bg-slate-6 disabled:hover:bg-slate-1 inline-flex items-center border justify-center select-none rounded-full disabled:cursor-not-allowed disabled:opacity-70 transition ease-in-out duration-200"
+              href="https://github.com/alexakayman/morphix?ref=morphix"
+              target="_blank"
+              rel="noopener"
+            >
+              Star on GitHub
+              <span className="text-[#70757E]">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="1.5"
+                    d="M10.75 8.75L14.25 12L10.75 15.25"
+                  ></path>
+                </svg>
+              </span>
+            </Link>
+          </div>
+        </div>
+      </Popup>
+
       {/* Add Fields */}
       <section className="mx-auto max-w-5xl px-6 pb-8 md:max-w-7xl" id="start">
-        <div className="flex flex-col items-start justify-between md:pb-12 gap-4">
+        <div className="flex flex-col items-start justify-between md:pb-12 gap-4 w-full">
           <h3 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[3rem] md:text-7xl leading-[3.35rem] md:leading-[4rem] tracking-tight font-gradient">
             1) Add Fields
           </h3>
-          <p>The more detail you provide in the field name, the better.</p>
-          <div id="fieldsContainer" className="flex flex-col"></div>
-          <div className="flex flex-row">
+          <p className="sans mb-8 mt-4 leading-7 md:text-left text-base md:text-[1.125rem] md:leading-[1.5] text-slate-11 font-normal">
+            The more detail you provide in the field name, the better.
+          </p>
+          <div
+            id="fieldsContainer"
+            className="flex flex-col w-full md:w-20"
+          ></div>
+          <div className="flex flex-row w-full">
             <button onClick={addField}>Add</button>
-            <button onClick={addDefaultFields}>Add Default</button>
             <button onClick={saveFields}>Save</button>
           </div>
           <p id="field-status"></p>
@@ -412,6 +531,11 @@ const Fields = () => {
             <h3 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[3rem] md:text-7xl leading-[3.35rem] md:leading-[4rem] tracking-tight font-gradient">
               2) Collect data
             </h3>
+            <p className="sans mb-8 mt-4 leading-7 md:text-left text-base md:text-[1.125rem] md:leading-[1.5] text-slate-11 font-normal">
+              Add as many links as you would like! 5 total batch generations per
+              user - use them wisely! You have <span id="count-uses">5</span>{" "}
+              more free uses.
+            </p>
             <div className="flex flex-col gap-2 mt-5">
               {links.map((link, index) => (
                 <div key={index} className="flex flex-row w-full">
@@ -435,9 +559,10 @@ const Fields = () => {
                   </div>
                 </div>
               ))}
-
-              <button onClick={handleCollectClick}>Collect</button>
             </div>
+            <button onClick={handleCollectClick} className="mt-3">
+              Collect
+            </button>
           </div>
         </div>
       </section>
@@ -448,7 +573,12 @@ const Fields = () => {
           <h3 className="font-book font-styling font-display font-effect-hero text-center md:text-left text-[3rem] md:text-7xl leading-[3.35rem] md:leading-[4rem] tracking-tight font-gradient">
             3) Download Results
           </h3>
-          <p id="statusText">Waiting for input...</p>
+          <p
+            id="statusText"
+            className="text-center max-w-md sans mb-8 mt-4 leading-7 md:text-left text-base md:text-[1.125rem] md:leading-[1.5] text-slate-11 font-normal"
+          >
+            Waiting for input...
+          </p>
           <p id="resultsContainer"></p>
           <table id="storedFieldsTable">
             <thead>
