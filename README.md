@@ -18,7 +18,7 @@ My latest late-night weekend side project. Here's how it works:
 **Why Morphix?**
 "Morph" refers to the process of transformation or change, while "fix" implies stability or resolution. Together, Morphix transforms your data into a stable, readable state. 
 
-### Known Issues
-1. Deleting a field after data has been generated will refresh the results table, deleting all results.
-2. Adding a new link & collecting results after some results have already been generated may result in uneven tables. Add all of the links at once & then export.
-
+### Use Tips
+1. Give a field as much detail as possible, like "Job Title" instead of just "Name" or "h1"
+2. Add all of the links you want to scrape, then click collect, and export together.
+3. Avoid deleting fields after you've generated data, or just be ready to click "collect" again after!
